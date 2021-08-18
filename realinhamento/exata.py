@@ -23,14 +23,14 @@ btn_login.click()
 link_nfe = browser.find_element_by_xpath(
     "//*[@id='menuLateral']/div[3]/div[1]/strong")
 link_nfe.click()
-# time.sleep(1)
+time.sleep(1)
 
 link_nota_recebidas = browser.find_element_by_xpath(
     "//*[@id='collapseNfe']/div/ul/li[1]/a")
 
 link_nota_recebidas.click()
 
-# time.sleep(1)
+# time.sleep(2)
 
 
 qtd_pdf = browser.find_element_by_xpath(
@@ -49,10 +49,5 @@ buscar_notas.click()
 selecionar_todos = browser.find_element_by_id("selecionarTodos")
 selecionar_todos.click()
 
-baixar_todos = browser.find_element_by_id("botaoBaixarSelecionados")
-baixar_todos.click()
-
-
-alert = browser.switch_to_window
-
-print(alert)
+browser.execute_script(
+    "$('form:has([name=NfeId])').attr('action', '/Downloads/' + 'Nfes' + 'PdfUnico').submit()")

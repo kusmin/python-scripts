@@ -22,7 +22,7 @@ busca = browser.find_element_by_xpath("//input[@placeholder='Pesquisar']")
 busca.send_keys("Java")
 busca.send_keys(Keys.RETURN)
 
-time.sleep(3)
+time.sleep(2)
 
 filtro_vagas = browser.find_element_by_xpath("//button[@aria_label='Vagas']")
 filtro_vagas.click()
