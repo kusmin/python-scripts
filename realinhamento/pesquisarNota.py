@@ -4,11 +4,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 
+empresa = input('Informe o numero da empresa(1 - Exata ou 2 - Gold): ')
+
 nome_empresa_pesquisar = input(
     'Informe o nome da empresa a pesquisar as notas ficais: ')
 
 options = Options()
-# options.headless = True
+
 options.add_argument("headless")
 browser = webdriver.Chrome(
     options=options, executable_path='/home/renan/projetos/estudo/scriptPython/chromedriver')
@@ -16,10 +18,17 @@ browser.set_window_size(1200, 1000)
 browser.get("https://nfstock.alterdata.com.br/")
 
 input_usuario = browser.find_element_by_class_name("logincliente")
-input_usuario.send_keys("17591262000170")
+if empresa == 1:
+    input_usuario.send_keys("17591262000170")
+else:
+    input_usuario.send_keys("11251668000128")
+
 
 input_senha = browser.find_element_by_class_name("senhacliente")
-input_senha.send_keys("Exata@175")
+if empresa == 1:
+    input_senha.send_keys("Exata@175")
+else:
+    input_senha.send_keys("Gold@2021")
 
 btn_login = browser.find_element_by_xpath("//input[@type='submit']")
 btn_login.click()
@@ -35,9 +44,6 @@ link_nota_recebidas = browser.find_element_by_xpath(
 print("Notas recebidas esta visivel: " +
       str(link_nota_recebidas.is_displayed()))
 link_nota_recebidas.click()
-
-
-# time.sleep(3)
 
 
 qtd_pdf = browser.find_element_by_xpath(
