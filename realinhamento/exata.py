@@ -4,8 +4,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 
-empresa = input('Informe o numero da empresa(1 - Exata ou 2 - Gold): ')
-
 nome_empresa_pesquisar = input(
     'Informe o nome da empresa a pesquisar as notas ficais: ')
 
@@ -18,21 +16,21 @@ browser.set_window_size(1200, 1000)
 browser.get("https://nfstock.alterdata.com.br/")
 
 input_usuario = browser.find_element_by_class_name("logincliente")
-if empresa == 1:
-    input_usuario.send_keys("17591262000170")
-else:
-    input_usuario.send_keys("11251668000128")
+input_usuario.clear()
+
+input_usuario.send_keys("17591262000170")
 
 
 input_senha = browser.find_element_by_class_name("senhacliente")
-if empresa == 1:
-    input_senha.send_keys("Exata@175")
-else:
-    input_senha.send_keys("Gold@2021")
+input_senha.clear()
+
+input_senha.send_keys("Exata@175")
+
 
 btn_login = browser.find_element_by_xpath("//input[@type='submit']")
 btn_login.click()
 
+time.sleep(2)
 link_nfe = browser.find_element_by_xpath(
     "//*[@id='menuLateral']/div[3]/div[1]/strong")
 print("Notas fiscal esta visivel: " + str(link_nfe.is_displayed()))
@@ -59,7 +57,10 @@ nome_fornecedor.send_keys("{}".format(nome_empresa_pesquisar))
 buscar_notas = browser.find_element_by_id("Buscar")
 buscar_notas.click()
 
-selecionar_todos = browser.find_element_by_id("selecionarTodos")
+try:
+    selecionar_todos = browser.find_element_by_id("selecionarTodos")
+except:
+    print('Nenhuma nota encontrada desta empresa')
 selecionar_todos.click()
 
 browser.execute_script(
